@@ -1,0 +1,1989 @@
+<!DOCTYPE html>
+<html lang="si" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>මුල් පිටුව - සිව්මග ධර්මායතනය</title>
+    
+    <!-- නිල ලාංඡනය Favicon එක ලෙස සම්බන්ධ කිරීම -->
+    <link rel="icon" type="image/png" href="SM l.png">
+    
+    <!-- Tailwind CSS මඟින් නවීන වෙබ් අඩවි සැලසුම්කරණය -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts මඟින් සිංහල සහ ඉංග්‍රීසි අකුරු විලාසිතා එක් කිරීම -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Sinhala:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome අයිකන එකතුව -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #f39c12;
+            --primary-dark: #d35400;
+            --dark-bg: #050c16;
+            --dark-overlay: rgba(5, 12, 22, 0.85);
+            --radius: 15px;
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        body {
+            background: #ffffff;
+            font-family: 'Noto Sans Sinhala', 'Inter', sans-serif;
+            overflow-x: hidden;
+            color: #333;
+        }
+
+        /* --- සංචාලන තීරුවේ අලංකාර animations --- */
+        .nav-link {
+            position: relative;
+            transition: var(--transition);
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* --- ප්‍රධාන HERO SLIDER කලාපය --- */
+        .hero-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background: #000;
+            overflow: hidden;
+        }
+
+        .slide .item {
+            width: 140px; 
+            height: 200px; 
+            position: absolute;
+            top: 78%; 
+            transform: translate(0, -50%);
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            background-position: center;
+            background-size: cover;
+            display: inline-block;
+            transition: 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .slide .item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.4) 100%);
+            border-radius: 16px;
+            z-index: 1;
+            transition: var(--transition);
+        }
+
+        .slide .item:nth-child(1),
+        .slide .item:nth-child(2) {
+            top: 0;
+            left: 0;
+            transform: translate(0, 0);
+            border-radius: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .slide .item:nth-child(1)::before,
+        .slide .item:nth-child(2)::before {
+            border-radius: 0;
+            background: linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.3) 100%);
+        }
+
+        .slide .item:nth-child(3) { left: 65%; }
+        .slide .item:nth-child(4) { left: calc(65% + 160px); }
+        .slide .item:nth-child(5) { left: calc(65% + 320px); }
+        .slide .item:nth-child(n + 6) {
+            left: calc(65% + 480px);
+            opacity: 0;
+        }
+
+        .item .content {
+            position: absolute;
+            top: 45%; 
+            left: 8%;
+            width: 84%; 
+            max-width: 580px;
+            text-align: left;
+            color: #eee;
+            transform: translate(0, -50%);
+            display: none;
+            z-index: 10;
+        }
+
+        .slide .item:nth-child(2) .content {
+            display: block;
+        }
+
+        .content .name {
+            font-size: clamp(28px, 5.2vw, 64px); 
+            text-transform: uppercase;
+            font-weight: 800;
+            opacity: 0;
+            line-height: 1.25;
+            color: #ffffff;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+            animation: animateContent 0.8s ease-in-out 1 forwards;
+        }
+
+        .content .des {
+            font-size: clamp(14px, 1.8vw, 18px); 
+            margin-top: 15px;
+            margin-bottom: 25px;
+            opacity: 0;
+            color: #e2e8f0;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+            animation: animateContent 0.8s ease-in-out 0.2s 1 forwards;
+        }
+
+        .content button {
+            padding: 10px 24px;
+            border: none;
+            cursor: pointer;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 30px;
+            font-size: clamp(13px, 1.5vw, 16px);
+            font-weight: 600;
+            opacity: 0;
+            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.4);
+            animation: animateContent 0.8s ease-in-out 0.4s 1 forwards;
+            transition: var(--transition);
+        }
+
+        .content button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(243, 156, 18, 0.6);
+        }
+
+        @keyframes animateContent {
+            from {
+                opacity: 0;
+                transform: translate(0, 80px);
+                filter: blur(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translate(0);
+                filter: blur(0);
+            }
+        }
+
+        .slider-nav {
+            width: 100%;
+            position: absolute;
+            bottom: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            z-index: 100;
+        }
+
+        .slider-nav button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            cursor: pointer;
+            transition: var(--transition);
+            color: white;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slider-nav button:hover {
+            background: #fff;
+            color: #000;
+            box-shadow: 0 8px 25px rgba(255,255,255,0.25);
+        }
+
+        /* --- ජංගම දුරකථන සහ ටැබ්ලට් පරිගණක සඳහා Slider හැඩගැස්වීම --- */
+        @media (max-width: 1024px) {
+            .slide .item {
+                width: 100px; 
+                height: 140px;
+                top: 80%;
+            }
+            .slide .item:nth-child(3) { left: 55%; }
+            .slide .item:nth-child(4) { left: calc(55% + 115px); }
+            .slide .item:nth-child(5) { left: calc(55% + 230px); }
+            .slide .item:nth-child(n + 6) { left: calc(55% + 345px); }
+        }
+
+        @media (max-width: 640px) {
+            .slide .item {
+                width: 65px; 
+                height: 95px;
+                top: 82%; 
+                border-radius: 8px;
+            }
+            .slide .item::before {
+                border-radius: 8px;
+            }
+            .slide .item:nth-child(3) { left: 50%; }
+            .slide .item:nth-child(4) { left: calc(50% + 75px); }
+            .slide .item:nth-child(5) { left: calc(50% + 150px); }
+            .slide .item:nth-child(n + 6) { left: calc(50% + 225px); }
+
+            .item .content {
+                top: 38%; 
+                left: 50% !important; 
+                transform: translate(-50%, -50%) !important;
+                width: 88%;
+                text-align: center !important; 
+            }
+            
+            .item .content button {
+                margin: 0 auto !important; 
+            }
+            
+            .slider-nav {
+                bottom: 20px;
+            }
+            .slider-nav button {
+                width: 40px;
+                height: 40px;
+                font-size: 14px;
+            }
+        }
+
+        /* --- සේවා කලාපයේ සැලසුම් (Services Section) --- */
+        .services-section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .service-card {
+            position: relative;
+            aspect-ratio: 1 / 1;
+            border-radius: 40px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+        }
+
+        .service-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+            display: block;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(243, 156, 18, 0.15);
+        }
+
+        .service-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(5, 12, 22, 0.4);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            text-align: center;
+            transition: var(--transition);
+            z-index: 2;
+        }
+
+        .service-card:hover .overlay {
+            background: var(--dark-overlay);
+        }
+
+        .service-icon {
+            background: var(--primary-color);
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: var(--transition);
+            box-shadow: 0 8px 20px rgba(243, 156, 18, 0.3);
+        }
+
+        .service-card h3 {
+            color: #fff;
+            margin: 0;
+            font-size: 1.4rem;
+            font-weight: 700;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: var(--transition);
+            transition-delay: 0.05s;
+        }
+
+        .service-card p.description {
+            color: #e2e8f0;
+            font-size: 0.95rem;
+            margin-top: 10px;
+            line-height: 1.6;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: var(--transition);
+            transition-delay: 0.1s;
+        }
+
+        /* Hover Reveal Styles for desktop */
+        @media (min-width: 1025px) {
+            .service-card:hover .service-icon,
+            .service-card:hover h3,
+            .service-card:hover p.description {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* --- ජංගම දුරකථන සේවා Grid හැඩගැස්වීම් --- */
+        @media (max-width: 1024px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            .overlay {
+                background: linear-gradient(to top, rgba(5, 12, 22, 0.95) 0%, rgba(5, 12, 22, 0.5) 100%);
+                justify-content: flex-end;
+                padding: 20px;
+            }
+            .service-icon {
+                transform: none;
+                opacity: 1;
+                width: 48px;
+                height: 48px;
+                font-size: 1.2rem;
+                margin-bottom: 10px;
+            }
+            .service-card h3 {
+                transform: none;
+                opacity: 1;
+                font-size: 1.2rem;
+            }
+            .service-card p.description {
+                transform: none;
+                opacity: 1;
+                font-size: 0.85rem;
+                margin-top: 6px;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .service-card {
+                aspect-ratio: 16 / 11;
+                border-radius: 24px;
+            }
+        }
+
+        /* --- දහම් පාසැල් කලාපයේ පාවෙන සහ පණ ඇති චලන (Floating Animations) --- */
+        @keyframes floatImg1 {
+            0%, 100% {
+                transform: translateY(0px) translateX(0px);
+            }
+            50% {
+                transform: translateY(-8px) translateX(-4px);
+            }
+        }
+        
+        @keyframes floatImg2 {
+            0%, 100% {
+                transform: translateY(0px) translateX(0px);
+            }
+            50% {
+                transform: translateY(8px) translateX(4px);
+            }
+        }
+
+        @keyframes badgePulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 15px 30px rgba(243, 156, 18, 0.15);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 20px 35px rgba(243, 156, 18, 0.35);
+            }
+        }
+        
+        .animate-float-img-1 {
+            animation: floatImg1 7s ease-in-out infinite;
+        }
+
+        .animate-float-img-2 {
+            animation: floatImg2 7s ease-in-out infinite;
+        }
+
+        .animate-badge-pulse {
+            animation: badgePulse 4s ease-in-out infinite;
+        }
+
+        /* --- 3D COVERFLOW MEMORY GALLERY --- */
+        .carousel-3d-section {
+            background-color: #ffffff;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .carousel-3d-container {
+            perspective: 1200px;
+            position: relative;
+            width: 100%;
+            height: 480px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-3d-viewport {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-3d-slide {
+            position: absolute;
+            width: 540px;
+            height: 340px;
+            border-radius: 24px;
+            overflow: hidden;
+            background-color: #222;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), 
+                        opacity 0.6s ease, 
+                        filter 0.6s ease,
+                        border 0.4s ease,
+                        box-shadow 0.4s ease;
+            cursor: pointer;
+            user-select: none;
+            backface-visibility: hidden;
+        }
+
+        .carousel-3d-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+        }
+
+        /* සක්‍රීය 3D Slide එක සඳහා රන්වන් පැහැති Glow Border එකක් (image_8d43e5.png පරිදි) */
+        .carousel-3d-slide.active-3d {
+            border: 4px solid #f39c12;
+            box-shadow: 0 25px 55px rgba(243, 156, 18, 0.35);
+            z-index: 10;
+        }
+
+        .nav-btn-3d {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #ffffff;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f39c12;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 20;
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .nav-btn-3d:hover {
+            background-color: #f39c12;
+            color: #ffffff;
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 10px 25px rgba(243, 156, 18, 0.3);
+        }
+
+        .nav-btn-3d.prev { left: 4%; }
+        .nav-btn-3d.next { right: 4%; }
+
+        .dots-container-3d {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .dot-3d {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #cbd5e1;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+        }
+
+        .dot-3d.active-dot {
+            width: 32px;
+            border-radius: 10px;
+            background-color: #f39c12;
+            box-shadow: 0 3px 10px rgba(243, 156, 18, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .carousel-3d-slide {
+                width: 290px;
+                height: 200px;
+                border-radius: 16px;
+            }
+            .carousel-3d-container {
+                height: 300px;
+            }
+            .nav-btn-3d {
+                width: 40px;
+                height: 40px;
+                font-size: 14px;
+            }
+            .nav-btn-3d.prev { left: 2%; }
+            .nav-btn-3d.next { right: 2%; }
+        }
+
+        /* --- දහම් පාසැල් කාලසටහන් කලාපය (Timetable Styles) --- */
+        .siwmaga-en-timetable-container {
+            width: 100%;
+            overflow-x: auto; 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border-radius: 20px;
+            background: #ffffff;
+            border: 1px solid rgba(243, 156, 18, 0.15);
+        }
+
+        .en-custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            min-width: 900px; 
+        }
+
+        .en-custom-table th {
+            background-color: #050c16;
+            color: #f39c12;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid rgba(243, 156, 18, 0.3);
+        }
+
+        .en-custom-table th, .en-custom-table td {
+            padding: 14px 18px;
+            border-bottom: 1px solid #f1f5f9;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .medium-column-en {
+            background-color: #f39c12 !important; 
+            color: white !important;
+            font-weight: 800;
+            vertical-align: middle;
+            font-size: 16px;
+            letter-spacing: 0.5px;
+            box-shadow: inset -5px 0 10px rgba(0,0,0,0.05);
+        }
+
+        .en-custom-table tbody tr {
+            transition: all 0.3s ease;
+        }
+
+        .en-custom-table tbody tr:hover {
+            background-color: #fef9c3 !important; 
+        }
+
+        /* Online සහ Monastery සඳහා වන ලාංඡන */
+        .tag {
+            padding: 5px 12px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-block;
+        }
+        .tag-online { background-color: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
+        .tag-monastery { background-color: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
+
+        /* --- ADVANCED FOOTER MAP --- */
+        .dhamma-footer-advanced {
+            position: relative;
+            width: 100%;
+            min-height: 650px;
+            background: #050c16;
+            color: #ffffff;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #footer-map-wrap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .map-overlay-v2 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent, #050c16 90%);
+            z-index: 2;
+        }
+
+        .invitation-box {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 30px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(243, 156, 18, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+
+        .dhamma-wheel-icon {
+            font-size: 40px;
+            color: #f39c12;
+            margin-bottom: 15px;
+            animation: rotateWheel 15s linear infinite;
+        }
+
+        @keyframes rotateWheel {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .invitation-text {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #e2e8f0;
+        }
+
+        .invitation-text .highlight {
+            color: #f39c12;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(243, 156, 18, 0.5);
+        }
+
+        .glow-line {
+            height: 2px;
+            width: 100px;
+            background: #f39c12;
+            margin: 20px auto 0;
+            box-shadow: 0 0 15px #f39c12;
+        }
+
+        .footer-main-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-content-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .footer-h3,
+        .footer-h4 {
+            color: #f39c12;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .f-desc {
+            font-size: 14px;
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .f-socials a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .f-socials a:hover {
+            background: #f39c12;
+            transform: translateY(-5px);
+        }
+
+        .branch-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .branch-list li {
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #e2e8f0;
+        }
+
+        .branch-list img {
+            width: 18px;
+            border-radius: 2px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        .contact-item i {
+            color: #f39c12;
+            width: 20px;
+        }
+
+        .footer-copyright {
+            margin-top: auto;
+            padding: 30px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 13px;
+            color: #94a3b8;
+        }
+
+        /* D3 Map Styles */
+        .land {
+            fill: #111e30;
+            stroke: #1d3557;
+            stroke-width: 0.5;
+        }
+
+        .link {
+            fill: none;
+            stroke: #f39c12;
+            stroke-width: 1;
+            stroke-dasharray: 4;
+            opacity: 0.45;
+        }
+
+        .moving-dot {
+            fill: #ffffff;
+            filter: drop-shadow(0 0 5px #f39c12);
+        }
+
+        .label-box {
+            fill: white;
+            rx: 4;
+        }
+
+        @media (max-width: 850px) {
+            .footer-content-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                text-align: center;
+            }
+
+            .contact-item {
+                justify-content: center;
+            }
+
+            .branch-list {
+                justify-content: center;
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            .invitation-text {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50">
+
+    <!-- සංචාලන තීරුව (Navigation Bar) -->
+    <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-black/40 backdrop-blur-md border-b border-white/10" id="main-header">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3">
+                <img src="SM l.png" alt="සිව්මග ධර්මායතනය ලාංඡනය" class="h-10 w-10 sm:h-12 sm:w-12 rounded-xl object-contain shadow-lg shadow-cyan-500/10 border border-cyan-500/20 transition-transform duration-300 hover:scale-105" onerror="this.src='https://placehold.co/100x100/050c16/00eaff?text=SM'">
+                <span class="text-white font-extrabold text-lg sm:text-xl tracking-wider">සිව්මග ධර්මායතනය</span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden md:flex items-center gap-8 text-white font-medium text-[15px]">
+                <a href="#" class="nav-link text-amber-500">මුල් පිටුව</a>
+                <a href="#daham-pasala" class="nav-link hover:text-amber-400">දහම් පාසැල</a>
+                <a href="#services" class="nav-link hover:text-amber-400">අපගේ සේවාවන්</a>
+                <a href="#gallery-3d" class="nav-link hover:text-amber-400">මතක සිතුවම්</a>
+                <a href="#timetable" class="nav-link hover:text-amber-400">කාලසටහන</a>
+                <a href="#news" class="nav-link hover:text-amber-400">පුවත්</a>
+                <a href="#footer" class="nav-link hover:text-amber-400">අප අමතන්න</a>
+            </nav>
+
+            <!-- Google Form Link -->
+            <div class="hidden md:block">
+                <a href="#" target="_blank" class="bg-amber-500 hover:bg-amber-600 text-white font-semibold px-6 py-2.5 rounded-full text-sm transition-all shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40 transform hover:-translate-y-0.5 inline-block">
+                    අයදුම් කරන්න <i class="fa-regular fa-hand-point-right ml-1 text-xs"></i>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="md:hidden text-white text-2xl focus:outline-none" id="mobile-menu-btn" aria-label="Open menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div class="hidden md:hidden bg-slate-900 border-t border-white/10 text-white px-6 py-6 space-y-4" id="mobile-menu">
+            <a href="#" class="block font-medium text-amber-500 py-2">මුල් පිටුව</a>
+            <a href="#daham-pasala" class="block font-medium hover:text-amber-400 py-2">දහම් පාසැල</a>
+            <a href="#services" class="block font-medium hover:text-amber-400 py-2">අපගේ සේවාවන්</a>
+            <a href="#gallery-3d" class="block font-medium hover:text-amber-400 py-2">මතක සිතුවම්</a>
+            <a href="#timetable" class="block font-medium hover:text-amber-400 py-2">කාලසටහන</a>
+            <a href="#news" class="block font-medium hover:text-amber-400 py-2">පුවත්</a>
+            <a href="#footer" class="block font-medium hover:text-amber-400 py-2">අප අමතන්න</a>
+            <a href="#" target="_blank" class="w-full bg-amber-500 text-white py-2.5 rounded-full font-bold shadow-md inline-block text-center">අයදුම් කරන්න <i class="fa-regular fa-hand-point-right ml-1 text-xs"></i></a>
+        </div>
+    </header>
+
+    <!-- Hero Slider Section -->
+    <section class="hero-container">
+        <div class="slide">
+            <!-- Item 1 -->
+            <div class="item" style="background-image: url('https://lh3.googleusercontent.com/d/16Ls7TupJRo6ahCZE5Wds2vzeRCrEZNAi');">
+                <div class="content">
+                    <div class="name">නිවන කරා පියවරක්</div>
+                    <div class="des">උතුම් වූ ශ්‍රී සද්ධර්මය ශ්‍රවණය කරමින් පාරමී දම් පුරන්නට ඔබත් එක්වන්න.</div>
+                    <button onclick="scrollToSection('services')">වැඩි විස්තර</button>
+                </div>
+            </div>
+            <!-- Item 2 -->
+            <div class="item" style="background-image: url('https://lh3.googleusercontent.com/d/1EicX0st1Zy9cgkQOt_FftjwLGL_OS-R_');">
+                <div class="content">
+                    <div class="name">සිත සනසන මඟ</div>
+                    <div class="des">භාවනාව මගින් ලබන අසිරිමත් මානසික සුවය ඔබේ ජීවිතයට සමීප කරගන්න.</div>
+                    <button onclick="scrollToSection('services')">වැඩි විස්තර</button>
+                </div>
+            </div>
+            <!-- Item 3 -->
+            <div class="item" style="background-image: url('https://lh3.googleusercontent.com/d/1Gis2ZGKFMy44a9YP2ft7LjirUmeZOwqZ');">
+                <div class="content">
+                    <div class="name">දහම් මග පෙන්වීම</div>
+                    <div class="des">ජීවිතයේ දුෂ්කරතා මැද නොසැලී සිටීමට බුදු දහමේ ආලෝකය ලබාගන්න.</div>
+                    <button onclick="scrollToSection('services')">වැඩි විස්තර</button>
+                </div>
+            </div>
+            <!-- Item 4 -->
+            <div class="item" style="background-image: url('https://lh3.googleusercontent.com/d/1gW2zRJjZwAfn8n_CILMeApSXutcsPEMP');">
+                <div class="content">
+                    <div class="name">ගුණවත් පරපුරක්</div>
+                    <div class="des">සදාචාර සම්පන්න දරු පරපුරක් උදෙසා දහම් පාසල් අධ්‍යාපනය තිළිණ කරමු.</div>
+                    <button onclick="scrollToSection('services')">වැඩි විස්තර</button>
+                </div>
+            </div>
+            <!-- Item 5 -->
+            <div class="item" style="background-image: url('https://lh3.googleusercontent.com/d/11MFy9Pj5DOrrYcjC71EmWHB6NxnQw58l');">
+                <div class="content">
+                    <div class="name">සමාජ සත්කාරය</div>
+                    <div class="des">පරාර්ථය උදෙසා කැපවුණු පින්බර වැඩසටහන් මාලාවට සම්බන්ධ වන්න.</div>
+                    <button onclick="scrollToSection('services')">වැඩි විස්තර</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="slider-nav">
+            <button class="prev-btn" aria-label="Previous slide"><i class="fa-solid fa-arrow-left"></i></button>
+            <button class="next-btn" aria-label="Next slide"><i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+    </section>
+
+    <!-- SECTION 1: SIVUMAGA DAHAM PASALA REGISTRATION SECTION -->
+    <section id="daham-pasala" class="py-24 bg-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                
+                <!-- වම්පස පාඨ සහ බොත්තම් (5/12 grid span) -->
+                <div class="lg:col-span-5 text-center lg:text-left">
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-800 mb-6 tracking-wide">
+                        සිව්මග දහම් පාසැල
+                    </h2>
+                    <p class="text-slate-700 text-lg sm:text-xl font-medium italic leading-relaxed mb-8 max-w-2xl mx-auto lg:mx-0">
+                        "නිවන මූලික කරගත් නිවැරදි අවබෝධයෙන් ලොව දකින ගුණ නැණ බෙලෙන් සපිරි උතුම් දුදරු කැළක් ලොවට දායාද කිරීම උදෙසා..."
+                    </p>
+                    <!-- අයදුම් කිරීමේ බොත්තම (Google Form සම්බන්ධ කර හැක) -->
+                    <a href="#" target="_blank" class="inline-flex items-center gap-3 bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-xl text-[16px] shadow-lg shadow-blue-600/20 hover:shadow-blue-600/30 transition-all transform hover:-translate-y-0.5">
+                        <i class="fa-regular fa-hand-point-right text-lg"></i> අයදුම් කරන්න
+                    </a>
+                </div>
+
+                <!-- දකුණුපස පින්තූර සැකසුම (Direct Links added as requested) -->
+                <div class="lg:col-span-7 flex justify-center items-center py-6 relative">
+                    <div class="relative w-full max-w-lg h-[400px] sm:h-[460px] mx-auto">
+                        
+                        <!-- Back Image (Top-Left) - 1WdJLhbtYYHCtA78aPrfam375wAhpUl5T -->
+                        <div class="absolute top-0 left-0 w-[68%] h-[74%] rounded-[32px] overflow-hidden border-4 border-white shadow-xl transition-all duration-500 hover:scale-[1.04] z-10 hover:z-30 group animate-float-img-1">
+                            <img src="https://lh3.googleusercontent.com/d/1WdJLhbtYYHCtA78aPrfam375wAhpUl5T" alt="සිව්මග දහම් පාසැල පින්තූරය 1" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-300"></div>
+                        </div>
+                        
+                        <!-- Front Image (Bottom-Right) - 1kwKvcb4WZ1dtNgyg8ic0aXLo2Kq8bs2J -->
+                        <div class="absolute bottom-0 right-0 w-[68%] h-[74%] rounded-[32px] overflow-hidden border-4 border-white shadow-2xl transition-all duration-500 hover:scale-[1.04] z-20 hover:z-30 group animate-float-img-2">
+                            <img src="https://lh3.googleusercontent.com/d/1kwKvcb4WZ1dtNgyg8ic0aXLo2Kq8bs2J" alt="සිව්මග දහම් පාසැල පින්තූරය 2" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-300"></div>
+                        </div>
+
+                        <!-- මැද දිදුලන ලාංඡනය -->
+                        <div class="absolute top-[48%] left-[45%] -translate-x-1/2 -translate-y-1/2 z-25 bg-white/95 backdrop-blur-md px-6 py-4 rounded-2xl shadow-xl border border-amber-500/20 text-center transition-transform duration-300 hover:scale-110 cursor-default select-none animate-badge-pulse">
+                            <div class="text-3xl font-black text-amber-500 tracking-tight">100%</div>
+                            <div class="text-[10px] sm:text-[11px] font-extrabold text-slate-600 uppercase tracking-wider mt-1">ගුණධර්ම සංවර්ධනය</div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: SERVICES SECTION -->
+    <section id="services" class="services-section bg-slate-50 border-t border-slate-100">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-800 mb-4 flex items-center justify-center gap-3">
+                අපගේ සේවාවන්
+            </h2>
+            <div class="w-24 h-1 bg-amber-500 mx-auto rounded-full mb-4"></div>
+            <p class="text-slate-600 font-medium">සිව්මග ධර්මායතනය මගින් පවත්වාගෙන යනු ලබන ප්‍රධාන සාමාජීය හා ආගමික සේවාවන්</p>
+        </div>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <img src="https://lh3.googleusercontent.com/d/1jXvYhCFZcPxp20EkJ5ZOsG5ZWu7PXxTL" alt="ධර්ම දේශනා">
+                <div class="overlay">
+                    <div class="service-icon"><i class="fas fa-dharmachakra"></i></div>
+                    <h3>ධර්ම දේශනා</h3>
+                    <p class="description">සතිපතා පවත්වනු ලබන ධර්ම දේශනා සහ භාවනා වැඩසටහන් මඟින් සැනසිලිදායක දහම් මගක්...</p>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="https://lh3.googleusercontent.com/d/1AKGKPbLMVsvctz5VKgONXYqcxVEvsuNr" alt="දහම් පාසල">
+                <div class="overlay">
+                    <div class="service-icon"><i class="fas fa-book-open"></i></div>
+                    <h3>දහම් පාසල</h3>
+                    <p class="description">දහම් දැනුම හා යහපත් පුරුදු සහිත දරු පිරිසක් නිර්මාණය උදෙසා පවත්වනු ලබන දහම් පාසල...</p>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="https://lh3.googleusercontent.com/d/1HivpwxsjKK756Q9rO5ouEaZiebayHT66" alt="ප්‍රජා සත්කාර">
+                <div class="overlay">
+                    <div class="service-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                    <h3>ප්‍රජා සත්කාර</h3>
+                    <p class="description">ප්‍රදේශයේ අඩු පහසුකම් සහිත පවුල් වෙනුවෙන් සිදුකරනු ලබන මානුෂීය සහ සමාජ සත්කාර...</p>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="https://lh3.googleusercontent.com/d/1fRqpimiyl3WkkRmMNrBhIly_lYEA02Jh" alt="වන්දනා චාරිකා">
+                <div class="overlay">
+                    <div class="service-icon"><i class="fas fa-map-marked-alt"></i></div>
+                    <h3>වන්දනා චාරිකා</h3>
+                    <p class="description">වාර්ෂිකව සංවිධානය කරනු ලබන පින්බර සැදැහැවත් වන්දනා සහ අධ්‍යාපනික චාරිකා මාලාවන්...</p>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="https://lh3.googleusercontent.com/d/1eAS0g8fo6vqK3e016a6ZEQ_xWpkDeda3" alt="පුස්තකාල පහසුකම්">
+                <div class="overlay">
+                    <div class="service-icon"><i class="fas fa-book-reader"></i></div>
+                    <h3>පුස්තකාලය</h3>
+                    <p class="description">දහම් දැනුම සහ බුද්ධිමය වර්ධනය උදෙසා දුර්ලභ ධර්ම ග්‍රන්ථ ඇතුළත් සුවපහසු පුස්තකාලය...</p>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="https://lh3.googleusercontent.com/d/16Jl9iAPZXbsLdeYmd9vrSP4drjv7GAJS" alt="වෙනත් සේවා">
+                <div class="overlay">
+                    <div class="service-icon"><i class="fas fa-ellipsis-h"></i></div>
+                    <h3>අමතර ක්‍රියාකාරකම්</h3>
+                    <p class="description">කථික තරග, භක්ති ගීත, දහම් ප්‍රශ්නෝත්තර සහ චිත්‍ර ඇතුළු කුසලතා සංවර්ධන වැඩසටහන්...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: 3D CAROUSEL MEMORY GALLERY -->
+    <section id="gallery-3d" class="carousel-3d-section py-20 border-t border-slate-100 bg-white">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-800 mb-4 flex items-center justify-center gap-3">
+                <span class="text-amber-500"><i class="fas fa-images"></i></span> අපේ මතක සිතුවම්
+            </h2>
+            <div class="w-24 h-1 bg-amber-500 mx-auto rounded-full mb-4"></div>
+            <p class="text-slate-600 font-medium">සිව්මග ධර්මායතනයේ සැදැහැවත් මතක සිතුවම් සහ අමතක නොවන රූපරාමු එකතුව</p>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 relative">
+            <div class="carousel-3d-container" id="carousel3d-container">
+                <div class="carousel-3d-viewport" id="carousel3d-viewport">
+                    <!-- Slides -->
+                    <div class="carousel-3d-slide"><img src="https://lh3.googleusercontent.com/d/16Ls7TupJRo6ahCZE5Wds2vzeRCrEZNAi" alt="මතක සිතුවම් 1"></div>
+                    <div class="carousel-3d-slide"><img src="https://lh3.googleusercontent.com/d/1EicX0st1Zy9cgkQOt_FftjwLGL_OS-R_" alt="මතක සිතුවම් 2"></div>
+                    <div class="carousel-3d-slide"><img src="https://lh3.googleusercontent.com/d/1Gis2ZGKFMy44a9YP2ft7LjirUmeZOwqZ" alt="මතක සිතුවම් 3"></div>
+                    <div class="carousel-3d-slide"><img src="https://lh3.googleusercontent.com/d/1gW2zRJjZwAfn8n_CILMeApSXutcsPEMP" alt="මතක සිතුවම් 4"></div>
+                    <div class="carousel-3d-slide"><img src="https://lh3.googleusercontent.com/d/11MFy9Pj5DOrrYcjC71EmWHB6NxnQw58l" alt="මතක සිතුවම් 5"></div>
+                    <div class="carousel-3d-slide"><img src="https://lh3.googleusercontent.com/d/1jXvYhCFZcPxp20EkJ5ZOsG5ZWu7PXxTL" alt="මතක සිතුවම් 6"></div>
+                    <div class="carousel-3d-slide"><img src="https://lh3.googleusercontent.com/d/1AKGKPbLMVsvctz5VKgONXYqcxVEvsuNr" alt="මතක සිතුවම් 7"></div>
+                    <div class="carousel-3d-slide"><img src="https://lh3.googleusercontent.com/d/1HivpwxsjKK756Q9rO5ouEaZiebayHT66" alt="මතක සිතුවම් 8"></div>
+                    <div class="carousel-3d-slide"><img src="https://lh3.googleusercontent.com/d/1fRqpimiyl3WkkRmMNrBhIly_lYEA02Jh" alt="මතක සිතුවම් 9"></div>
+                    <div class="carousel-3d-slide"><img src="https://lh3.googleusercontent.com/d/1eAS0g8fo6vqK3e016a6ZEQ_xWpkDeda3" alt="මතක සිතුවම් 10"></div>
+                </div>
+
+                <button class="nav-btn-3d prev" id="carousel3d-prev" aria-label="Previous image"><i class="fas fa-chevron-left"></i></button>
+                <button class="nav-btn-3d next" id="carousel3d-next" aria-label="Next image"><i class="fas fa-chevron-right"></i></button>
+            </div>
+
+            <!-- Dots Indicators -->
+            <div class="dots-container-3d" id="carousel3d-dots"></div>
+
+            <div class="text-center mt-12">
+                <a href="gallery.html" class="inline-flex items-center gap-3 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold px-8 py-3.5 rounded-full text-base transition-all shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40 transform hover:-translate-y-1">
+                    සම්පූර්ණ පින්තූර ගැලරිය වෙත <i class="fas fa-images text-sm"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: SIVUMAGA TIMETABLE SECTION (Moved right above News & Announcements) -->
+    <section id="timetable" class="py-24 bg-slate-50 border-t border-slate-100">
+        <div class="max-w-7xl mx-auto px-6">
+            <!-- Header (Theme Matched) -->
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-800 mb-4 flex items-center justify-center gap-3">
+                    <span class="text-amber-500"><i class="fa-regular fa-calendar-days"></i></span> දහම් පාසල් කාලසටහන
+                </h2>
+                <div class="w-24 h-1 bg-amber-500 mx-auto rounded-full mb-4"></div>
+                <p class="text-slate-600 font-medium">සිංහල සහ ඉංග්‍රීසි මාධ්‍ය දහම් පන්තිවල සම්පූර්ණ වේලාවන් සහ තොරතුරු</p>
+            </div>
+
+            <!-- Timetable Interactive Controls -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-between items-center mb-8 max-w-4xl mx-auto">
+                <!-- Medium Selector Tabs -->
+                <div class="flex bg-slate-200 p-1.5 rounded-xl border border-slate-300 shadow-inner w-full sm:w-auto">
+                    <button id="tab-sinhala" onclick="switchMedium('Sinhala')" class="flex-1 sm:flex-none text-sm font-bold px-6 py-3.5 rounded-lg transition-all duration-300 bg-amber-500 text-white shadow-md">
+                        සිංහල මාධ්‍යය
+                    </button>
+                    <button id="tab-english" onclick="switchMedium('English')" class="flex-1 sm:flex-none text-sm font-bold px-6 py-3.5 rounded-lg transition-all duration-300 text-slate-700 hover:text-slate-900">
+                        English Medium
+                    </button>
+                </div>
+
+                <!-- Instant Search Input -->
+                <div class="relative w-full sm:w-72">
+                    <input type="text" id="timetable-search" onkeyup="filterTimetable()" placeholder="රට හෝ පන්තිය සොයන්න..." class="w-full bg-white text-slate-800 pl-10 pr-4 py-3.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all text-sm shadow-sm">
+                    <span class="absolute left-3.5 top-[50%] -translate-y-1/2 text-slate-400 text-sm"><i class="fas fa-search"></i></span>
+                </div>
+            </div>
+
+            <!-- Timetable Component (Responsive Grid/Table Wrapper) -->
+            <div class="max-w-6xl mx-auto">
+                
+                <!-- Desktop Table View (Hidden on Small Screens) -->
+                <div class="hidden md:block siwmaga-en-timetable-container">
+                    <table class="en-custom-table" id="timetable-table">
+                        <thead>
+                            <tr>
+                                <th>Medium</th>
+                                <th>The child's country</th>
+                                <th>Online/Monastery</th>
+                                <th>Male/Female</th>
+                                <th>Section</th>
+                                <th>Sub-division</th>
+                                <th>Age limit</th>
+                                <th>Time of event (SL Time)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="timetable-rows">
+                            <!-- Sinhala Medium Rows -->
+                            <tr class="t-row t-sinhala">
+                                <td class="medium-column-en" rowspan="22">Sinhala</td>
+                                <td class="font-semibold text-slate-800">Sri Lanka</td>
+                                <td><span class="tag tag-monastery">Monastery</span></td>
+                                <td>Male</td>
+                                <td>Siwmaga Children - Monastery</td>
+                                <td>Junior</td>
+                                <td class="font-medium text-slate-700">Age: 7 - 11</td>
+                                <td class="font-bold text-amber-600">Sat. 2:00 - 7:00 pm</td>
+                            </tr>
+                            <tr class="t-row t-sinhala">
+                                <td class="font-semibold text-slate-800">Sri Lanka</td>
+                                <td><span class="tag tag-monastery">Monastery</span></td>
+                                <td>Male</td>
+                                <td>Siwmaga Children - Monastery</td>
+                                <td>Senior</td>
+                                <td class="font-medium text-slate-700">Age: 11 - 16</td>
+                                <td class="font-bold text-amber-600">Sat. 2:00 - 7:00 pm</td>
+                            </tr>
+                            <tr class="t-row t-sinhala">
+                                <td class="font-semibold text-slate-800">Sri Lanka</td>
+                                <td><span class="tag tag-monastery">Monastery</span></td>
+                                <td>Female</td>
+                                <td>Siwmaga Female - Monastery</td>
+                                <td>Junior</td>
+                                <td class="font-medium text-slate-700">Age: 7 - 11</td>
+                                <td class="font-bold text-amber-600">Sat. 2:00 - 7:00 pm</td>
+                            </tr>
+                            <tr class="t-row t-sinhala">
+                                <td class="font-semibold text-slate-800">Sri Lanka</td>
+                                <td><span class="tag tag-monastery">Monastery</span></td>
+                                <td>Female</td>
+                                <td>Siwmaga Female - Monastery</td>
+                                <td>Senior</td>
+                                <td class="font-medium text-slate-700">Age: 11 - 16</td>
+                                <td class="font-bold text-amber-600">Sat. 2:00 - 7:00 pm</td>
+                            </tr>
+                            <tr class="t-row t-sinhala"><td>Sri Lanka</td><td><span class="tag tag-online">Online</span></td><td>Male</td><td>Siwmaga Children</td><td>Step 01</td><td class="font-medium text-slate-700">Age: 7</td><td class="font-bold text-amber-600">Sun 5:30 - 7:00 pm</td></tr>
+                            <tr class="t-row t-sinhala"><td>Sri Lanka</td><td><span class="tag tag-online">Online</span></td><td>Male</td><td>Siwmaga Children</td><td>Step 02</td><td class="font-medium text-slate-700">Age: 8</td><td class="font-bold text-amber-600">Sun 5:30 - 7:00 pm</td></tr>
+                            <tr class="t-row t-sinhala"><td>Sri Lanka</td><td><span class="tag tag-online">Online</span></td><td>Male</td><td>Siwmaga Children</td><td>Step 03</td><td class="font-medium text-slate-700">Age: 9</td><td class="font-bold text-amber-600">Sun 3.30 - 5.00 pm</td></tr>
+                            <tr class="t-row t-sinhala"><td>Sri Lanka</td><td><span class="tag tag-online">Online</span></td><td>Male</td><td>Siwmaga Children</td><td>Step 04</td><td class="font-medium text-slate-700">Age: 10</td><td class="font-bold text-amber-600">Sun 3.30 - 5.00 pm</td></tr>
+                            <tr class="t-row t-sinhala"><td>Sri Lanka</td><td><span class="tag tag-online">Online</span></td><td>Male</td><td>Siwmaga Children</td><td>Step 05</td><td class="font-medium text-slate-700">Age: 11</td><td class="font-bold text-amber-600">Sun 3.30 - 5.00 pm</td></tr>
+                            <tr class="t-row t-sinhala"><td>Sri Lanka</td><td><span class="tag tag-online">Online</span></td><td>Male</td><td>Siwmaga Children</td><td>Step 06</td><td class="font-medium text-slate-700">Age: 12</td><td class="font-bold text-amber-600">Sun 3.30 - 5.00 pm</td></tr>
+                            <tr class="t-row t-sinhala"><td>Sri Lanka</td><td><span class="tag tag-online">Online</span></td><td>Male</td><td>Siwmaga Children</td><td>Step 07</td><td class="font-medium text-slate-700">Age: 13</td><td class="font-bold text-amber-600">Sun 5:30 - 7:00 pm</td></tr>
+                            <tr class="t-row t-sinhala"><td>Sri Lanka</td><td><span class="tag tag-online">Online</span></td><td>Male</td><td>Siwmaga Children</td><td>Step 08</td><td class="font-medium text-slate-700">Age: 14</td><td class="font-bold text-amber-600">Sun 5:30 - 7:00 pm</td></tr>
+                            <tr class="t-row t-sinhala"><td>Sri Lanka</td><td><span class="tag tag-online">Online</span></td><td>Male</td><td>Siwmaga Children</td><td>Step 09</td><td class="font-medium text-slate-700">Age: 15/16</td><td class="font-bold text-amber-600">Sun 5:30 - 7:00 pm</td></tr>
+                            <tr class="t-row t-sinhala"><td>Sri Lanka</td><td><span class="tag tag-online">Online</span></td><td>Female</td><td>Siwmaga Female</td><td>Step 01</td><td class="font-medium text-slate-700">Age: 7</td><td class="font-bold text-amber-600">Sun 5:30 - 7:00 pm</td></tr>
+                            <tr class="t-row t-sinhala"><td>Sri Lanka</td><td><span class="tag tag-online">Online</span></td><td>Female</td><td>Siwmaga Female</td><td>Step 02</td><td class="font-medium text-slate-700">Age: 8</td><td class="font-bold text-amber-600">Sun 5:30 - 7:00 pm</td></tr>
+                            <tr class="t-row t-sinhala"><td>Sri Lanka</td><td><span class="tag tag-online">Online</span></td><td>Female</td><td>Siwmaga Female</td><td>Step 03</td><td class="font-medium text-slate-700">Age: 9</td><td class="font-bold text-amber-600">Sun 5:30 - 7:00 pm</td></tr>
+                            <tr class="t-row t-sinhala"><td>Sri Lanka</td><td><span class="tag tag-online">Online</span></td><td>Female</td><td>Siwmaga Female</td><td>Step 04</td><td class="font-medium text-slate-700">Age: 10</td><td class="font-bold text-amber-600">Sun 5:30 - 7:00 pm</td></tr>
+                            <tr class="t-row t-sinhala"><td>Sri Lanka</td><td><span class="tag tag-online">Online</span></td><td>Female</td><td>Siwmaga Female</td><td>Step 05</td><td class="font-medium text-slate-700">Age: 11</td><td class="font-bold text-amber-600">Sun. 7:00 - 8:30 pm</td></tr>
+                            <tr class="t-row t-sinhala"><td>Sri Lanka</td><td><span class="tag tag-online">Online</span></td><td>Female</td><td>Siwmaga Female</td><td>Step 06</td><td class="font-medium text-slate-700">Age: 12</td><td class="font-bold text-amber-600">Sun 5:30 - 7:00 pm</td></tr>
+                            <tr class="t-row t-sinhala"><td>Sri Lanka</td><td><span class="tag tag-online">Online</span></td><td>Female</td><td>Siwmaga Female</td><td>Step 07</td><td class="font-medium text-slate-700">Age: 13</td><td class="font-bold text-amber-600">Sun 5:30 - 7:00 pm</td></tr>
+                            <tr class="t-row t-sinhala"><td>Sri Lanka</td><td><span class="tag tag-online">Online</span></td><td>Female</td><td>Siwmaga Female</td><td>Step 08</td><td class="font-medium text-slate-700">Age: 14</td><td class="font-bold text-amber-600">Sun. 7:00 - 8:30 pm</td></tr>
+                            <tr class="t-row t-sinhala"><td>Sri Lanka</td><td><span class="tag tag-online">Online</span></td><td>Female</td><td>Siwmaga Female</td><td>Step 09</td><td class="font-medium text-slate-700">Age: 15/16</td><td class="font-bold text-amber-600">Sun. 7:00 - 8:30 pm</td></tr>
+                            
+                            <tr class="t-row t-sinhala"><td>England 01</td><td><span class="tag tag-online">Online</span></td><td>Female/Male</td><td>Siwmaga Abroad</td><td>Junior</td><td class="font-medium text-slate-700">Age: 7 - 11</td><td class="font-bold text-amber-600">Sun. 2:00 - 3:30 pm</td></tr>
+                            <tr class="t-row t-sinhala"><td>England 02</td><td><span class="tag tag-online">Online</span></td><td>Female/Male</td><td>Siwmaga Abroad</td><td>Senior</td><td class="font-medium text-slate-700">Age: 11 - 16</td><td class="font-bold text-amber-600">Sun. 4:00 - 5:30 pm</td></tr>
+                            <tr class="t-row t-sinhala"><td>Australia</td><td><span class="tag tag-online">Online</span></td><td>Female/Male</td><td>Siwmaga Abroad</td><td>-</td><td class="font-medium text-slate-700">Age: 7 - 16</td><td class="font-bold text-amber-600">Sun. 2:00 - 3:30 pm</td></tr>
+                            <tr class="t-row t-sinhala"><td>Italy</td><td><span class="tag tag-online">Online</span></td><td>Male/Female</td><td>Siwmaga Abroad</td><td>-</td><td class="font-medium text-slate-700">Age: 7 - 16</td><td class="font-bold text-amber-600">Sat. 1:00 - 2:30 pm</td></tr>
+
+                            <!-- English Medium Rows (Initially Hidden) -->
+                            <tr class="t-row t-english hidden">
+                                <td class="medium-column-en" rowspan="8">English</td>
+                                <td class="font-semibold text-slate-800">Sri Lanka</td>
+                                <td><span class="tag tag-monastery">Monastery</span></td>
+                                <td>Male</td>
+                                <td>Siwmaga Children</td>
+                                <td>English Medium</td>
+                                <td class="font-medium text-slate-700">Age: 7 - 16</td>
+                                <td class="font-bold text-amber-600">Sat. 2:00 - 7:00 pm</td>
+                            </tr>
+                            <tr class="t-row t-english hidden">
+                                <td class="font-semibold text-slate-800">Sri Lanka</td>
+                                <td><span class="tag tag-monastery">Monastery</span></td>
+                                <td>Female</td>
+                                <td>Siwmaga Female</td>
+                                <td>English Medium</td>
+                                <td class="font-medium text-slate-700">Age: 7 - 16</td>
+                                <td class="font-bold text-amber-600">Sat. 2:00 - 7:00 pm</td>
+                            </tr>
+                            <tr class="t-row t-english hidden"><td>Any country</td><td><span class="tag tag-online">Online</span></td><td>Male</td><td>Siwmaga International</td><td>Boys</td><td class="font-medium text-slate-700">Age: 7 - 16</td><td class="font-bold text-amber-600">Sat. 12:30 - 2:00 pm</td></tr>
+                            <tr class="t-row t-english hidden"><td>Any country</td><td><span class="tag tag-online">Online</span></td><td>Female</td><td>Siwmaga International</td><td>Girls</td><td class="font-medium text-slate-700">Age: 7 - 16</td><td class="font-bold text-amber-600">Sat. 12:30 - 2:00 pm</td></tr>
+                            <tr class="t-row t-english hidden"><td>State of Qatar</td><td><span class="tag tag-online">Online</span></td><td>Male/Female</td><td>Siwmaga International</td><td>Boys/Girls</td><td class="font-medium text-slate-700">Age: 7 - 16</td><td class="font-bold text-amber-600">Fri. 2:00 - 3:30 pm</td></tr>
+                            <tr class="t-row t-english hidden"><td>Canada</td><td><span class="tag tag-online">Online</span></td><td>Male/Female</td><td>Siwmaga International</td><td>Boys/Girls</td><td class="font-medium text-slate-700">Age: 7 - 12</td><td class="font-bold text-amber-600">Sun. 8:00 - 09:30 pm</td></tr>
+                            <tr class="t-row t-english hidden"><td>Canada 1</td><td><span class="tag tag-online">Online</span></td><td>Male/Female</td><td>Siwmaga International</td><td>Boys/Girls</td><td class="font-medium text-slate-700">Age: 13 - 16</td><td class="font-bold text-amber-600">Sun. 8:30 - 10:00 pm</td></tr>
+                            <tr class="t-row t-english hidden"><td>Ireland</td><td><span class="tag tag-online">Online</span></td><td>Male/Female</td><td>Siwmaga International</td><td>Boys/Girls</td><td class="font-medium text-slate-700">Age: 06 - 16</td><td class="font-bold text-amber-600">Sat. 7:30 - 09:00 pm</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Mobile Responsive Card View (Visible on Small Screens) -->
+                <div class="md:hidden space-y-4" id="timetable-cards-container">
+                    <!-- Cards are dynamically injected here using JavaScript -->
+                </div>
+
+                <!-- Empty Result Warning -->
+                <div id="no-timetable-results" class="hidden p-8 text-center bg-white rounded-2xl border border-dashed border-slate-300">
+                    <p class="text-slate-500 font-bold text-base">සෙවූ දත්ත කිසිවක් හමු නොවීය. කරුණාකර නැවත උත්සාහ කරන්න.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: INTERACTIVE NEWS SECTION -->
+    <section id="news" class="py-20 bg-slate-100">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-800 mb-4 flex items-center justify-center gap-3">
+                    <span class="text-amber-500"><i class="fas fa-newspaper"></i></span> පුවත් සහ නිවේදන
+                </h2>
+                <div class="w-24 h-1 bg-amber-500 mx-auto rounded-full mb-4"></div>
+                <p class="text-slate-600 font-medium">సిව්මග ධර්මායතනයේ නවතම තොරතුරු සහ ඉදිරි වැඩසටහන් පිළිබඳ නිවේදන</p>
+            </div>
+
+            <!-- News Grid -->
+            <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- News Card 1 -->
+                <div class="news-card bg-white rounded-3xl overflow-hidden shadow-md flex flex-col">
+                    <div class="relative h-48 overflow-hidden">
+                        <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/d/1gW2zRJjZwAfn8n_CILMeApSXutcsPEMP" alt="දහම් පාසල් පුවත">
+                        <span class="absolute top-4 left-4 bg-blue-600 text-white text-xs font-bold px-3 py-1.5 rounded-full">දහම් පාසල</span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <span class="text-slate-400 text-xs font-semibold mb-2"><i class="far fa-calendar-alt mr-1"></i> 2026 මැයි 12</span>
+                        <h3 class="text-lg font-bold text-slate-800 mb-3 line-clamp-2">2026 නව වර්ෂය සඳහා සිව්මග දහම් පාසල් සිසුන් ඇතුළත් කරගැනීම දැන් ඇරඹුනා</h3>
+                        <p class="text-slate-600 text-sm mb-5 line-clamp-3">ගුණවත් පරපුරක් උදෙසා වූ දහම් පාසල් අධ්‍යාපන මෙහෙවරට ඔබේ ආදරණීය දරුවාත් සම්බන්ධ කිරීමට අදම ලියාපදිංචි වන්න...</p>
+                        <button onclick="openNewsModal('school-reg')" class="mt-auto text-amber-600 hover:text-amber-700 font-bold text-sm flex items-center gap-1 group self-start">
+                            වැඩිදුර කියවන්න <i class="fas fa-arrow-right text-xs transition-transform group-hover:translate-x-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- News Card 2 -->
+                <div class="news-card bg-white rounded-3xl overflow-hidden shadow-md flex flex-col">
+                    <div class="relative h-48 overflow-hidden">
+                        <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/d/1HivpwxsjKK756Q9rO5ouEaZiebayHT66" alt="ප්‍රජා සත්කාර පුවත">
+                        <span class="absolute top-4 left-4 bg-amber-500 text-white text-xs font-bold px-3 py-1.5 rounded-full">ප්‍රජා සත්කාර</span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <span class="text-slate-400 text-xs font-semibold mb-2"><i class="far fa-calendar-alt mr-1"></i> 2026 අප්‍රේල් 28</span>
+                        <h3 class="text-lg font-bold text-slate-800 mb-3 line-clamp-2">අඩු ආදායම්ලාභී පවුල් සඳහා වියළි සලාක සහ අත්‍යවශ්‍ය ද්‍රව්‍ය බෙදා දීමේ මහා පින්කම</h3>
+                        <p class="text-slate-600 text-sm mb-5 line-clamp-3">දහම් ප්‍රජාවගේ දායකත්වයෙන් සංවිධානය කළ මෙම සද්කාර්යය මඟින් දුෂ්කරතා මධ්‍යයේ වෙසෙන පවුල් 200කට අධික පිරිසකට සහන සැලසිනි...</p>
+                        <button onclick="openNewsModal('social-help')" class="mt-auto text-amber-600 hover:text-amber-700 font-bold text-sm flex items-center gap-1 group self-start">
+                            වැඩිදුර කියවන්න <i class="fas fa-arrow-right text-xs transition-transform group-hover:translate-x-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- News Card 3 -->
+                <div class="news-card bg-white rounded-3xl overflow-hidden shadow-md flex flex-col">
+                    <div class="relative h-48 overflow-hidden">
+                        <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/d/1EicX0st1Zy9cgkQOt_FftjwLGL_OS-R_" alt="භාවනා පුවත">
+                        <span class="absolute top-4 left-4 bg-emerald-600 text-white text-xs font-bold px-3 py-1.5 rounded-full">භාවනා</span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <span class="text-slate-400 text-xs font-semibold mb-2"><i class="far fa-calendar-alt mr-1"></i> 2026 අප්‍රේල් 15</span>
+                        <h3 class="text-lg font-bold text-slate-800 mb-3 line-clamp-2">සතිපතා පවත්වනු ලබන විශේෂ සතිපට්ඨාන ධ්‍යාන වැඩසටහන ලබන සෙනසුරාදා</h3>
+                        <p class="text-slate-600 text-sm mb-5 line-clamp-3">නිස්කලංක වටපිටාවක සිත එකඟ කරගනිමින් නිවන කරා පියවරක් තැබීමට කැමති සැදැහැවත් පින්වතුන්ට ආරාධනා කෙරේ...</p>
+                        <button onclick="openNewsModal('meditation-program')" class="mt-auto text-amber-600 hover:text-amber-700 font-bold text-sm flex items-center gap-1 group self-start">
+                            වැඩිදුර කියවන්න <i class="fas fa-arrow-right text-xs transition-transform group-hover:translate-x-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWS DETAILED MODAL POPUP -->
+    <div id="news-modal" class="fixed inset-0 z-50 overflow-y-auto hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-2xl relative transform scale-95 opacity-0 transition-all duration-300" id="news-modal-content">
+            <button onclick="closeNewsModal()" class="absolute top-4 right-4 w-10 h-10 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-full flex items-center justify-center transition-colors">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="h-64 sm:h-72 w-full overflow-hidden">
+                <img id="modal-img" class="w-full h-full object-cover" src="" alt="පුවත් රූපය">
+            </div>
+            <div class="p-8">
+                <span id="modal-badge" class="bg-amber-500 text-white text-xs font-bold px-3 py-1.5 rounded-full inline-block mb-4">කාණ්ඩය</span>
+                <div class="text-slate-400 text-xs font-semibold mb-3 flex items-center gap-1">
+                    <i class="far fa-calendar-alt"></i> <span id="modal-date">දිනය</span>
+                </div>
+                <h3 id="modal-title" class="text-2xl font-bold text-slate-800 mb-4 leading-snug">පුවත් මාතෘකාව</h3>
+                <div id="modal-text" class="text-slate-600 text-[15px] leading-relaxed space-y-4">
+                    <!-- Dynamic Body Text -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer id="footer" class="dhamma-footer-advanced">
+        <div id="footer-map-wrap">
+            <div class="map-overlay-v2"></div>
+            <svg id="footer-dynamic-map"></svg>
+        </div>
+
+        <div class="footer-main-container">
+            <div class="invitation-box">
+                <div class="dhamma-wheel-icon"><i class="fas fa-dharmachakra"></i></div>
+                <p class="invitation-text">
+                    "උතුම් ධර්මාවබෝධයෙන් හා යහගුණදමින් සිත්සතන් සරසාගෙන ලොවට වටිනා පුතණුවකු වන්නට, දියණියක වන්නට ලොව
+                    පුරා දරුදැරියන්ට <span class="highlight">සිව්මග දහම් පාසැලෙන්</span> මෙත් සිතින් කෙරෙන ආරාධනාවයි
+                    මේ...!"
+                </p>
+                <div class="glow-line"></div>
+            </div>
+
+            <div class="footer-content-grid">
+                <div class="f-col">
+                    <div class="flex items-center gap-3 mb-5">
+                        <img src="SM l.png" alt="සිව්මග ධර්මායතනය ලාංඡනය" class="h-12 w-12 rounded-xl object-contain border border-cyan-500/25 shadow-md shadow-cyan-500/10" onerror="this.src='https://placehold.co/120x120/050c16/00eaff?text=SM'">
+                        <h3 class="footer-h3" style="margin-bottom: 0;">සිව්මග ධර්මායතනය</h3>
+                    </div>
+                    <p class="f-desc">සම්බුදු දහමේ ආලෝකයෙන් දරු පරපුරේ හෙට දවස ආලෝකවත් කරන ගෝලීය අධ්‍යාපනික මෙහෙවර.</p>
+                    <div class="f-socials">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Youtube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" aria-label="Whatsapp"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+                <div class="f-col">
+                    <h4 class="footer-h4">ගෝලීය ජාලය</h4>
+                    <ul id="global-branch-list" class="branch-list"></ul>
+                </div>
+
+                <div class="f-col">
+                    <h4 class="footer-h4">අප අමතන්න</h4>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>info@sivumaga.lk</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>+94 11 234 5678</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>කොළඹ, ශ්‍රී ලංකාව.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-copyright">
+                <p>© 2026 සිව්මග ධර්මායතනය | නිර්මාණය: Digital Dhamma Team</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts Section -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    
+    <script>
+        // --- NAVIGATION BAR SCROLL EVENT ---
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 50) {
+                header.classList.remove('bg-black/40');
+                header.classList.add('bg-slate-950', 'shadow-xl', 'py-3');
+            } else {
+                header.classList.remove('bg-slate-950', 'shadow-xl', 'py-3');
+                header.classList.add('bg-black/40');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Scroll to Section Helper
+        function scrollToSection(id) {
+            const section = document.getElementById(id);
+            if(section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // --- HERO SLIDER NAVIGATION ---
+        const next = document.querySelector('.next-btn');
+        const prev = document.querySelector('.prev-btn');
+        const slider = document.querySelector('.slide');
+
+        next.onclick = function () {
+            let items = document.querySelectorAll('.item');
+            slider.appendChild(items[0]);
+        }
+
+        prev.onclick = function () {
+            let items = document.querySelectorAll('.item');
+            slider.prepend(items[items.length - 1]);
+        }
+
+        // Auto slide every 7 seconds
+        let autoSlide = setInterval(() => {
+            next.click();
+        }, 7000);
+
+        // Reset timer on manual click
+        [next, prev].forEach(btn => {
+            btn.addEventListener('click', () => {
+                clearInterval(autoSlide);
+                autoSlide = setInterval(() => {
+                    next.click();
+                }, 7000);
+            });
+        });
+    </script>
+
+    <!-- TIMETABLE SYSTEM DATA & RESPONSIVE LOGIC -->
+    <script>
+        const timetableData = [
+            // Sinhala Medium
+            { med: "Sinhala", country: "Sri Lanka", type: "Monastery", gender: "Male", sec: "Siwmaga Children - Monastery", sub: "Junior", age: "Age: 7 - 11", time: "Sat. 2:00 - 7:00 pm" },
+            { med: "Sinhala", country: "Sri Lanka", type: "Monastery", gender: "Male", sec: "Siwmaga Children - Monastery", sub: "Senior", age: "Age: 11 - 16", time: "Sat. 2:00 - 7:00 pm" },
+            { med: "Sinhala", country: "Sri Lanka", type: "Monastery", gender: "Female", sec: "Siwmaga Female - Monastery", sub: "Junior", age: "Age: 7 - 11", time: "Sat. 2:00 - 7:00 pm" },
+            { med: "Sinhala", country: "Sri Lanka", type: "Monastery", gender: "Female", sec: "Siwmaga Female - Monastery", sub: "Senior", age: "Age: 11 - 16", time: "Sat. 2:00 - 7:00 pm" },
+            { med: "Sinhala", country: "Sri Lanka", type: "Online", gender: "Male", sec: "Siwmaga Children", sub: "Step 01", age: "Age: 7", time: "Sun 5:30 - 7:00 pm" },
+            { med: "Sinhala", country: "Sri Lanka", type: "Online", gender: "Male", sec: "Siwmaga Children", sub: "Step 02", age: "Age: 8", time: "Sun 5:30 - 7:00 pm" },
+            { med: "Sinhala", country: "Sri Lanka", type: "Online", gender: "Male", sec: "Siwmaga Children", sub: "Step 03", age: "Age: 9", time: "Sun 3.30 - 5.00 pm" },
+            { med: "Sinhala", country: "Sri Lanka", type: "Online", gender: "Male", sec: "Siwmaga Children", sub: "Step 04", age: "Age: 10", time: "Sun 3.30 - 5.00 pm" },
+            { med: "Sinhala", country: "Sri Lanka", type: "Online", gender: "Male", sec: "Siwmaga Children", sub: "Step 05", age: "Age: 11", time: "Sun 3.30 - 5.00 pm" },
+            { med: "Sinhala", country: "Sri Lanka", type: "Online", gender: "Male", sec: "Siwmaga Children", sub: "Step 06", age: "Age: 12", time: "Sun 3.30 - 5.00 pm" },
+            { med: "Sinhala", country: "Sri Lanka", type: "Online", gender: "Male", sec: "Siwmaga Children", sub: "Step 07", age: "Age: 13", time: "Sun 5:30 - 7:00 pm" },
+            { med: "Sinhala", country: "Sri Lanka", type: "Online", gender: "Male", sec: "Siwmaga Children", sub: "Step 08", age: "Age: 14", time: "Sun 5:30 - 7:00 pm" },
+            { med: "Sinhala", country: "Sri Lanka", type: "Online", gender: "Male", sec: "Siwmaga Children", sub: "Step 09", age: "Age: 15/16", time: "Sun 5:30 - 7:00 pm" },
+            { med: "Sinhala", country: "Sri Lanka", type: "Online", gender: "Female", sec: "Siwmaga Female", sub: "Step 01", age: "Age: 7", time: "Sun 5:30 - 7:00 pm" },
+            { med: "Sinhala", country: "Sri Lanka", type: "Online", gender: "Female", sec: "Siwmaga Female", sub: "Step 02", age: "Age: 8", time: "Sun 5:30 - 7:00 pm" },
+            { med: "Sinhala", country: "Sri Lanka", type: "Online", gender: "Female", sec: "Siwmaga Female", sub: "Step 03", age: "Age: 9", time: "Sun 5:30 - 7:00 pm" },
+            { med: "Sinhala", country: "Sri Lanka", type: "Online", gender: "Female", sec: "Siwmaga Female", sub: "Step 04", age: "Age: 10", time: "Sun 5:30 - 7:00 pm" },
+            { med: "Sinhala", country: "Sri Lanka", type: "Online", gender: "Female", sec: "Siwmaga Female", sub: "Step 05", age: "Age: 11", time: "Sun. 7:00 - 8:30 pm" },
+            { med: "Sinhala", country: "Sri Lanka", type: "Online", gender: "Female", sec: "Siwmaga Female", sub: "Step 06", age: "Age: 12", time: "Sun 5:30 - 7:00 pm" },
+            { med: "Sinhala", country: "Sri Lanka", type: "Online", gender: "Female", sec: "Siwmaga Female", sub: "Step 07", age: "Age: 13", time: "Sun 5:30 - 7:00 pm" },
+            { med: "Sinhala", country: "Sri Lanka", type: "Online", gender: "Female", sec: "Siwmaga Female", sub: "Step 08", age: "Age: 14", time: "Sun. 7:00 - 8:30 pm" },
+            { med: "Sinhala", country: "Sri Lanka", type: "Online", gender: "Female", sec: "Siwmaga Female", sub: "Step 09", age: "Age: 15/16", time: "Sun. 7:00 - 8:30 pm" },
+            { med: "Sinhala", country: "England 01", type: "Online", gender: "Female/Male", sec: "Siwmaga Abroad", sub: "Junior", age: "Age: 7 - 11", time: "Sun. 2:00 - 3:30 pm" },
+            { med: "Sinhala", country: "England 02", type: "Online", gender: "Female/Male", sec: "Siwmaga Abroad", sub: "Senior", age: "Age: 11 - 16", time: "Sun. 4:00 - 5:30 pm" },
+            { med: "Sinhala", country: "Australia", type: "Online", gender: "Female/Male", sec: "Siwmaga Abroad", sub: "-", age: "Age: 7 - 16", time: "Sun. 2:00 - 3:30 pm" },
+            { med: "Sinhala", country: "Italy", type: "Online", gender: "Male/Female", sec: "Siwmaga Abroad", sub: "-", age: "Age: 7 - 16", time: "Sat. 1:00 - 2:30 pm" },
+            
+            // English Medium
+            { med: "English", country: "Sri Lanka", type: "Monastery", gender: "Male", sec: "Siwmaga Children", sub: "English Medium", age: "Age: 7 - 16", time: "Sat. 2:00 - 7:00 pm" },
+            { med: "English", country: "Sri Lanka", type: "Monastery", gender: "Female", sec: "Siwmaga Female", sub: "English Medium", age: "Age: 7 - 16", time: "Sat. 2:00 - 7:00 pm" },
+            { med: "English", country: "Any country", type: "Online", gender: "Male", sec: "Siwmaga International", sub: "Boys", age: "Age: 7 - 16", time: "Sat. 12:30 - 2:00 pm" },
+            { med: "English", country: "Any country", type: "Online", gender: "Female", sec: "Siwmaga International", sub: "Girls", age: "Age: 7 - 16", time: "Sat. 12:30 - 2:00 pm" },
+            { med: "English", country: "State of Qatar", type: "Online", gender: "Male/Female", sec: "Siwmaga International", sub: "Boys/Girls", age: "Age: 7 - 16", time: "Fri. 2:00 - 3:30 pm" },
+            { med: "English", country: "Canada", type: "Online", gender: "Male/Female", sec: "Siwmaga International", sub: "Boys/Girls", age: "Age: 7 - 12", time: "Sun. 8:00 - 09:30 pm" },
+            { med: "English", country: "Canada 1", type: "Online", gender: "Male/Female", sec: "Siwmaga International", sub: "Boys/Girls", age: "Age: 13 - 16", time: "Sun. 8:30 - 10:00 pm" },
+            { med: "English", country: "Ireland", type: "Online", gender: "Male/Female", sec: "Siwmaga International", sub: "Boys/Girls", age: "Age: 06 - 16", time: "Sat. 7:30 - 09:00 pm" }
+        ];
+
+        let activeMedium = "Sinhala";
+
+        function switchMedium(medium) {
+            activeMedium = medium;
+            
+            // Toggle active styles on tabs
+            const tabSinhala = document.getElementById("tab-sinhala");
+            const tabEnglish = document.getElementById("tab-english");
+
+            if(medium === "Sinhala") {
+                tabSinhala.className = "flex-1 sm:flex-none text-sm font-bold px-6 py-3.5 rounded-lg transition-all duration-300 bg-amber-500 text-white shadow-md";
+                tabEnglish.className = "flex-1 sm:flex-none text-sm font-bold px-6 py-3.5 rounded-lg transition-all duration-300 text-slate-700 hover:text-slate-900";
+            } else {
+                tabEnglish.className = "flex-1 sm:flex-none text-sm font-bold px-6 py-3.5 rounded-lg transition-all duration-300 bg-amber-500 text-white shadow-md";
+                tabSinhala.className = "flex-1 sm:flex-none text-sm font-bold px-6 py-3.5 rounded-lg transition-all duration-300 text-slate-700 hover:text-slate-900";
+            }
+
+            // Toggle table rows directly
+            const rows = document.querySelectorAll(".t-row");
+            rows.forEach(row => {
+                if(row.classList.contains("t-" + medium.toLowerCase())) {
+                    row.classList.remove("hidden");
+                } else {
+                    row.classList.add("hidden");
+                }
+            });
+
+            // Re-render mobile view and search
+            filterTimetable();
+        }
+
+        // Search and render loop for both mobile cards and table
+        function filterTimetable() {
+            const query = document.getElementById("timetable-search").value.toLowerCase();
+            const cardsContainer = document.getElementById("timetable-cards-container");
+            const desktopTable = document.getElementById("timetable-table");
+            const warning = document.getElementById("no-timetable-results");
+
+            // Filter relevant items based on active medium & search query
+            const filteredData = timetableData.filter(item => {
+                const matchesMedium = item.med === activeMedium;
+                const matchesQuery = item.country.toLowerCase().includes(query) || 
+                                     item.sec.toLowerCase().includes(query) || 
+                                     item.sub.toLowerCase().includes(query);
+                return matchesMedium && matchesQuery;
+            });
+
+            // Toggle empty warning state
+            if (filteredData.length === 0) {
+                warning.classList.remove("hidden");
+                desktopTable.classList.add("hidden");
+                cardsContainer.innerHTML = '';
+                return;
+            } else {
+                warning.classList.add("hidden");
+                desktopTable.classList.remove("hidden");
+            }
+
+            // Build card components dynamically for smaller devices
+            cardsContainer.innerHTML = '';
+            filteredData.forEach(item => {
+                const badgeClass = item.type === "Online" ? "tag-online" : "tag-monastery";
+                const card = `
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-amber-500/50 transition-all duration-300">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">${item.med} Medium</span>
+                            <span class="tag ${badgeClass}">${item.type}</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-slate-800 mb-2">${item.country}</h4>
+                        <div class="grid grid-cols-2 gap-y-2 text-xs text-slate-600 mb-4">
+                            <div><span class="font-bold">Gender:</span> ${item.gender}</div>
+                            <div><span class="font-bold">Age:</span> ${item.age}</div>
+                            <div class="col-span-2"><span class="font-bold">Section:</span> ${item.sec}</div>
+                            <div class="col-span-2"><span class="font-bold">Division:</span> ${item.sub}</div>
+                        </div>
+                        <div class="bg-amber-50 p-3 rounded-xl border border-amber-100 flex items-center justify-between">
+                            <span class="text-xs font-bold text-amber-800">Time (SL):</span>
+                            <span class="text-sm font-bold text-amber-600">${item.time}</span>
+                        </div>
+                    </div>
+                `;
+                cardsContainer.innerHTML += card;
+            });
+
+            // Apply filter logic on Desktop Table view
+            const rows = document.querySelectorAll(".t-row");
+            let visibleCount = 0;
+            rows.forEach(row => {
+                const isCorrectMedium = row.classList.contains("t-" + activeMedium.toLowerCase());
+                const textContent = row.textContent.toLowerCase();
+                const matchesQuery = textContent.includes(query);
+
+                if (isCorrectMedium && matchesQuery) {
+                    row.classList.remove("hidden");
+                    visibleCount++;
+                } else {
+                    row.classList.add("hidden");
+                }
+            });
+
+            // Adjust first row spans for proper layout merging
+            const firstRow = document.querySelector(".t-row.t-" + activeMedium.toLowerCase() + ":not(.hidden)");
+            if (firstRow) {
+                const firstCol = firstRow.querySelector(".medium-column-en");
+                if (firstCol) {
+                    firstCol.setAttribute("rowspan", visibleCount);
+                }
+            }
+        }
+
+        // Initialize table layouts responsively on start
+        window.addEventListener('DOMContentLoaded', () => {
+            switchMedium('Sinhala');
+        });
+    </script>
+
+    <!-- INTERACTIVE NEWS SCRIPTS -->
+    <script>
+        // News Database for detailed modals
+        const newsData = {
+            'school-reg': {
+                title: "2026 නව වර්ෂය සඳහා සිව්මග දහම් පාසල් සිසුන් ඇතුළත් කරගැනීම දැන් ඇරඹුනා",
+                badge: "දහම් පාසල",
+                date: "2026 මැයි 12",
+                image: "https://lh3.googleusercontent.com/d/1gW2zRJjZwAfn8n_CILMeApSXutcsPEMP",
+                text: `<p>සිව්මග දහම් පාසැල මගින් සංවිධානය කරනු ලබන නව වසර සඳහා සිසුන් ඇතුළත් කරගැනීමේ වැඩසටහන දැන් නිල වශයෙන් ආරම්භ කර ඇත. සම්බුදු දහමේ උතුම් ධර්මාවබෝධයෙන් හා ගුණධර්මයන්ගෙන් පිරිපුන් සදාචාරසම්පන්න අනාගත පරපුරක් බිහිකිරීම අපගේ ප්‍රධානතම අරමුණයි.</p>
+                       <p>ලියාපදිංචි වීමට අවශ්‍ය අයදුත්පත් සහ උපදෙස් පත්‍රිකා දහම් පාසැල් පරිපාලන අංශය සම්බන්ධ කරගැනීමෙන් ලබාගත හැකිය. ඔබගේ දරුවා සදාචාරවත් මාවතකට යොමු කිරීමට අදම එක්වන්න.</p>`
+            },
+            'social-help': {
+                title: "අඩු ආදායම්ලාභී පවුල් සඳහා වියළි සලාක සහ අත්‍යවශ්‍ය ද්‍රව්‍ය බෙදා දීමේ මහා පින්කම",
+                badge: "ප්‍රජා සත්කාර",
+                date: "2026 අප්‍රේල් 28",
+                image: "https://lh3.googleusercontent.com/d/1HivpwxsjKK756Q9rO5ouEaZiebayHT66",
+                text: `<p>සිව්මග ධර්මායතනයේ සමාජ සත්කාරක අංශය මගින් ප්‍රදේශයේ අසීරුතා මධ්‍යයේ ජීවත් වන පවුල් සඳහා වියළි සලාක ද්‍රව්‍ය මෙන්ම අත්‍යවශ්‍ය දෛනික උපකරණ බෙදාදීමේ විශේෂ වැඩසටහන සාර්ථකව පවත්වා අවසන් විය.</p>
+                       <p>මෙම සද්කාර්යය සඳහා දායකත්වය ලබාදුන් ලොව පුරා වෙසෙන ත්‍යාගශීලී සැදැහැවතුන් සියලු දෙනාටම සිව්මග ධර්මායතනයේ ගෞරවනීය ස්තූතිය පිරිනමමු. මෙවැනි ප්‍රජා සත්කාරක ක්‍රියාකාරකම් ඉදිරියටත් සිදු කිරීමට ඔබගේ සහයෝගය අපේක්ෂා කරමු.</p>`
+            },
+            'meditation-program': {
+                title: "සතිපතා පවත්වනු ලබන විශේෂ සතිපට්ඨාන ධ්‍යාන වැඩසටහන ලබන සෙනසුරාදා",
+                badge: "භාවනා",
+                date: "2026 අප්‍රේල් 15",
+                image: "https://lh3.googleusercontent.com/d/1EicX0st1Zy9cgkQOt_FftjwLGL_OS-R_",
+                text: `<p>අපගේ කාර්යබහුල ජීවිතය තුළ නොසන්සුන් වන මනස සනසා ගැනීමටත්, මානසික ආතතියෙන් මිදී ආධ්‍යාත්මික සැනසීම ළඟා කර ගැනීමටත් උපකාර වන සතිපට්ඨාන භාවනා වැඩසටහනක් ලබන සෙනසුරාදා දින සිව්මග ධර්මායතනයේ ප්‍රධාන ශාලාවේදී පැවැත්වේ.</p>
+                       <p>වැඩසටහන පූජනීය මහා සංඝරත්නයේ මෙහෙයවීමෙන් සිදුවන අතර සැදැහැවත් පින්වතුන්ට මෙත් සිතින් ආරාධනා කෙරේ.</p>`
+            }
+        };
+
+        // Open News Modal
+        function openNewsModal(key) {
+            const data = newsData[key];
+            if (!data) return;
+
+            document.getElementById('modal-img').src = data.image;
+            document.getElementById('modal-badge').innerText = data.badge;
+            document.getElementById('modal-date').innerText = data.date;
+            document.getElementById('modal-title').innerText = data.title;
+            document.getElementById('modal-text').innerHTML = data.text;
+
+            const modal = document.getElementById('news-modal');
+            const content = document.getElementById('news-modal-content');
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 50);
+            
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        // Close News Modal
+        function closeNewsModal() {
+            const modal = document.getElementById('news-modal');
+            const content = document.getElementById('news-modal-content');
+
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto'; 
+            }, 300);
+        }
+
+        // Close modals when clicking outside contents
+        document.getElementById('news-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeNewsModal();
+            }
+        });
+    </script>
+
+    <!-- 3D COVERFLOW GALLERY LOGIC -->
+    <script>
+        (function() {
+            const viewport = document.getElementById('carousel3d-viewport');
+            const slides = document.querySelectorAll('.carousel-3d-slide');
+            const prevBtn = document.getElementById('carousel3d-prev');
+            const nextBtn = document.getElementById('carousel3d-next');
+            const dotsContainer = document.getElementById('carousel3d-dots');
+            
+            let currentIndex = 2; 
+            const totalSlides = slides.length;
+            
+            function buildDots() {
+                dotsContainer.innerHTML = '';
+                for (let i = 0; i < totalSlides; i++) {
+                    const dot = document.createElement('div');
+                    dot.className = 'dot-3d' + (i === currentIndex ? ' active-dot' : '');
+                    dot.addEventListener('click', () => {
+                        currentIndex = i;
+                        updateCarousel();
+                        resetAutoplayTimer(); 
+                    });
+                    dotsContainer.appendChild(dot);
+                }
+            }
+
+            function updateCarousel() {
+                slides.forEach((slide, idx) => {
+                    let offset = idx - currentIndex;
+                    
+                    if (offset < -totalSlides / 2) offset += totalSlides;
+                    if (offset > totalSlides / 2) offset -= totalSlides;
+
+                    const absOffset = Math.abs(offset);
+                    
+                    if (absOffset > 2) {
+                        slide.style.opacity = '0';
+                        slide.style.visibility = 'hidden';
+                        slide.style.transform = `translateX(${offset > 0 ? 120 : -120}%) scale(0.5)`;
+                        slide.classList.remove('active-3d');
+                        return;
+                    }
+
+                    slide.style.visibility = 'visible';
+                    slide.style.opacity = absOffset === 0 ? '1' : (absOffset === 1 ? '0.75' : '0.4');
+                    slide.style.filter = absOffset === 0 ? 'blur(0px)' : 'blur(2px)';
+                    slide.style.zIndex = 10 - absOffset;
+
+                    let translateX = offset * 250; 
+                    let scale = 1 - (absOffset * 0.15);
+                    let rotateY = offset * -22; 
+
+                    if (window.innerWidth < 768) {
+                        translateX = offset * 110; 
+                        scale = 1 - (absOffset * 0.22);
+                        rotateY = offset * -12;
+                    } else if (window.innerWidth < 1024) {
+                        translateX = offset * 180;
+                    }
+
+                    slide.style.transform = `translateX(${translateX}px) scale(${scale}) rotateY(${rotateY}deg)`;
+                    
+                    if (absOffset === 0) {
+                        slide.classList.add('active-3d');
+                    } else {
+                        slide.classList.remove('active-3d');
+                    }
+                });
+
+                const dots = document.querySelectorAll('.dot-3d');
+                dots.forEach((dot, idx) => {
+                    if (idx === currentIndex) {
+                        dot.classList.add('active-dot');
+                    } else {
+                        dot.classList.remove('active-dot');
+                    }
+                });
+            }
+
+            let autoplayTimer = setInterval(() => {
+                currentIndex = (currentIndex + 1) % totalSlides;
+                updateCarousel();
+            }, 4000);
+
+            function resetAutoplayTimer() {
+                clearInterval(autoplayTimer);
+                autoplayTimer = setInterval(() => {
+                    currentIndex = (currentIndex + 1) % totalSlides;
+                    updateCarousel();
+                }, 4000);
+            }
+
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % totalSlides;
+                updateCarousel();
+                resetAutoplayTimer();
+            });
+
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+                updateCarousel();
+                resetAutoplayTimer();
+            });
+
+            slides.forEach((slide, idx) => {
+                slide.addEventListener('click', () => {
+                    if (idx !== currentIndex) {
+                        currentIndex = idx;
+                        updateCarousel();
+                        resetAutoplayTimer();
+                    }
+                });
+            });
+
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            viewport.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+
+            viewport.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, { passive: true });
+
+            function handleSwipe() {
+                const diff = touchStartX - touchEndX;
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) {
+                        nextBtn.click(); 
+                    } else {
+                        prevBtn.click(); 
+                    }
+                }
+            }
+
+            window.addEventListener('resize', updateCarousel);
+            
+            buildDots();
+            updateCarousel();
+        })();
+    </script>
+
+    <!-- D3 Global Map Script for Footer -->
+    <script>
+        (function () {
+            const wrap = document.getElementById('footer-map-wrap');
+            let width = wrap.offsetWidth;
+            let height = wrap.offsetHeight;
+            const svg = d3.select("#footer-dynamic-map")
+                .attr("width", width)
+                .attr("height", height);
+
+            const locations = [
+                { name: "Sri Lanka", coords: [80.7718, 7.8731], flag: "https://flagcdn.com/w40/lk.png", center: true },
+                { name: "Australia", coords: [133.7751, -25.2744], flag: "https://flagcdn.com/w40/au.png" },
+                { name: "Japan", coords: [138.2529, 36.2048], flag: "https://flagcdn.com/w40/jp.png" },
+                { name: "England", coords: [-1.5, 52.5], flag: "https://flagcdn.com/w40/gb.png" },
+                { name: "USA", coords: [-95.7129, 37.0902], flag: "https://flagcdn.com/w40/us.png" },
+                { name: "Canada", coords: [-106.3468, 56.1304], flag: "https://flagcdn.com/w40/ca.png" },
+                { name: "Italy", coords: [12.5674, 41.8719], flag: "https://flagcdn.com/w40/it.png" },
+                { name: "France", coords: [2.2137, 46.2276], flag: "https://flagcdn.com/w40/fr.png" }
+            ];
+
+            const projection = d3.geoMercator()
+                .scale(width / 6.5)
+                .translate([width / 2, height / 1.5]);
+            const path = d3.geoPath().projection(projection);
+
+            d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
+            .then(data => {
+                svg.selectAll(".land")
+                    .data(data.features)
+                    .enter()
+                    .append("path")
+                    .attr("class", "land")
+                    .attr("d", path);
+
+                const sPoint = projection(locations[0].coords);
+
+                locations.forEach((loc, i) => {
+                    const tPoint = projection(loc.coords);
+
+                    if (i > 0) {
+                        const globalList = d3.select("#global-branch-list");
+                        if (globalList.node() && globalList.selectAll("li").size() < locations.length - 1) {
+                            globalList.append("li")
+                                .html(`<img src="${loc.flag}" alt="${loc.name} flag"> ${loc.name}`);
+                        }
+
+                        const dx = tPoint[0] - sPoint[0],
+                              dy = tPoint[1] - sPoint[1],
+                              dr = Math.sqrt(dx * dx + dy * dy) * 1.3;
+                              
+                        const pLine = svg.append("path")
+                            .attr("class", "link")
+                            .attr("d", `M${sPoint[0]},${sPoint[1]}A${dr},${dr} 0 0,1 ${tPoint[0]},${tPoint[1]}`);
+
+                        const dot = svg.append("circle")
+                            .attr("class", "moving-dot")
+                            .attr("r", 2.5);
+
+                        function anim() {
+                            dot.transition()
+                                .duration(5000 + Math.random() * 3000)
+                                .attrTween("transform", () => t => {
+                                    const length = pLine.node().getTotalLength();
+                                    const p = pLine.node().getPointAtLength(t * length);
+                                    return `translate(${p.x},${p.y})`;
+                                })
+                                .on("end", anim);
+                        }
+                        anim();
+                    }
+
+                    const lbl = svg.append("g")
+                        .attr("transform", `translate(${tPoint[0] + 5}, ${tPoint[1] - 8})`);
+                        
+                    lbl.append("rect")
+                        .attr("class", "label-box")
+                        .attr("width", 54)
+                        .attr("height", 15)
+                        .attr("fill", "white")
+                        .attr("opacity", 0.75);
+                        
+                    lbl.append("text")
+                        .attr("x", 5)
+                        .attr("y", 11)
+                        .text(loc.name)
+                        .style("font-size", "8px")
+                        .style("font-family", "Inter, sans-serif")
+                        .style("fill", "#050c16")
+                        .style("font-weight", "bold");
+
+                    svg.append("circle")
+                        .attr("cx", tPoint[0])
+                        .attr("cy", tPoint[1])
+                        .attr("r", loc.center ? 5 : 3.5)
+                        .attr("fill", loc.center ? "#f39c12" : "#00eaff")
+                        .attr("filter", "drop-shadow(0px 0px 4px rgba(243, 156, 18, 0.8))");
+                });
+            })
+            .catch(err => {
+                console.error("D3 map failed to load", err);
+            });
+
+            window.addEventListener('resize', () => {
+                width = wrap.offsetWidth;
+                height = wrap.offsetHeight;
+                svg.attr("width", width).attr("height", height);
+            });
+        })();
+    </script>
+</body>
+
+</html>
